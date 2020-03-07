@@ -4,12 +4,8 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-<<<<<<< HEAD
 import UserContext from './contexts/userContext'
 
-import Splash from './components/Splash'
-=======
->>>>>>> e28d97d21db9e72bb40636acfea657330c0959e1
 import Home from './components/Home'
 import Profile from './components/Profile'
 import Workout from './components/Workout'

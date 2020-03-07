@@ -20,13 +20,13 @@ export default function Profile() {
 		<View style={styles.container}>
 			<MenuDrawer 
 				open={drawer}
-				drawerContent={drawerContent()}
+				drawerContent={() => drawerContent()}
 				drawerPercentage={60}
 				animationTime={250}
 				overlay={true}
 				opacity={0.4}
 			>
-				<PanGestureHandler onGestureEvent={setDrawer(!drawer)} activeOffsetX={20}>
+				<PanGestureHandler onGestureEvent={() => setDrawer(!drawer)} activeOffsetX={20}>
 					<Text>Swipe</Text>
 				</PanGestureHandler>
 			</MenuDrawer>
