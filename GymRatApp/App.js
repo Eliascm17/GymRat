@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
 
-	const [user, setUser] = useState({ id: "", name: "", bio: "", points: 0 })
+	const [user, setUser] = useState({ name: "", bio: "", points: 0 })
 	newUser = async (name) => {
 		// api call
 
@@ -22,10 +22,10 @@ export default function App() {
 	}
 
 	return (
-		<UserContext.Provider value={{user, newUser}}>
+		<UserContext.Provider value={{user, setUser, newUser}}>
 			<NavigationContainer>
 				<Stack.Navigator>
-					<Stack.Screen name="splash" component={Profile} />
+					<Stack.Screen name="profile" component={Profile} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		</UserContext.Provider>

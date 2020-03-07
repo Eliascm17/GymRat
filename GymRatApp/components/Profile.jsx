@@ -1,13 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { DrawerLayout, PanGestureHandler } from 'react-native-gesture-handler'
- 
+import { DrawerLayout, PanGestureHandler } from 'react-native-gesture-handler' 
+
+import UserContext from '../contexts/userContext'
+
 export default function Profile() {
 
 	function profileContent() {
+
 		return (
-			<View>
-				<Text>I am in the drawer!</Text>
+			<View style={{flex: 1, padding: 20 }}>
+				<Avatar
+					rounded
+					source={{
+						uri: "https://raw.githubusercontent.com/Eliascm17/GymRat/master/GymRatApp/assets/icon.png"
+					}}
+				/>
 			</View>
 		);
 	};
@@ -15,10 +23,11 @@ export default function Profile() {
 	return (
 		<View style={{flex: 1}}>
 			<DrawerLayout
-				drawerWidth={200}
+				drawerWidth={300}
+				edgeWidth={300}
 				drawerPosition={DrawerLayout.positions.Left}
 				drawerType='front'
-				drawerBackgroundColor="#ddd"
+				drawerBackgroundColor="#fafafa"
 				renderNavigationView={profileContent}
 			>
 				<View>

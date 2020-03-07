@@ -2,7 +2,6 @@ import React from 'react'
 
 let UserContext = React.createContext({
     user: {
-        id: "",
         name: "",
         bio: "",
         points: "",
