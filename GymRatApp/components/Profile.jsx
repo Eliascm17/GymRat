@@ -18,24 +18,22 @@ export default function Profile() {
 		);
 	};
  
-	render() {
-		return (
-			<View style={styles.container}>
-				<MenuDrawer 
-					open={drawer}
-					drawerContent={this.drawerContent()}
-					drawerPercentage={60}
-					animationTime={250}
-					overlay={true}
-					opacity={0.4}
-				>
-					<TouchableOpacity onPress={() => setDrawer(true)} style={styles.body}>
-						<Text>Open</Text>
-					</TouchableOpacity>
-				</MenuDrawer>
-			</View>
-		);
-	}
+	return (
+		<View style={styles.container}>
+			<MenuDrawer 
+				open={drawer}
+				drawerContent={this.drawerContent()}
+				drawerPercentage={60}
+				animationTime={250}
+				overlay={true}
+				opacity={0.4}
+			>
+				<TouchableOpacity onPress={() => setDrawer(true)} style={styles.body}>
+					<Text>Open</Text>
+				</TouchableOpacity>
+			</MenuDrawer>
+		</View>
+	);
 }
  
 const styles = StyleSheet.create({
