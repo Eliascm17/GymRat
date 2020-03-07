@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Platform, StyleSheet, Text, View } from 'react-native'
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, ThemeProvider } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import UserContext from './contexts/userContext'
@@ -15,19 +15,18 @@ const Stack = createStackNavigator();
 export default function App() {
 
 	const [user, setUser] = useState({ name: "", bio: "", points: 0 })
-	newUser = async (name) => {
-		// api call
 
-		// set user
-	}
+	const theme = {}
 
 	return (
-		<UserContext.Provider value={{user, setUser, newUser}}>
-			<NavigationContainer>
-				<Stack.Navigator>
-					<Stack.Screen name="profile" component={Profile} />
-				</Stack.Navigator>
-			</NavigationContainer>
+		<UserContext.Provider value={{user, setUser}}>
+			<ThemeProvider theme={theme}>
+				<NavigationContainer>
+					<Stack.Navigator>
+						<Stack.Screen name="profile" component={Profile} />
+					</Stack.Navigator>
+				</NavigationContainer>
+			</ThemeProvider>
 		</UserContext.Provider>
 	);
 }
