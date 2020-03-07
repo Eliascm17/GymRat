@@ -1,33 +1,59 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, Text, View, TextInput } from 'react-native'
+import userContext from '../contexts/userContext'
+import { Button } from 'react-native-elements';
+import axios from 'axios'
 // import Icon from 'react-native-vector-icons/FontAwesome'
 // import { Input } from 'react-native-elements'
 
-
 function Login() {
 
-    const [UserTextInput, setUserTextInput] = useState('Enter your name...')
-    const [LoginUser, setloginUser] = useState(null)
+    const [userTextInput, setuserTextInput] = useState('')
+    const [ data, setData ] = useState(null)
+    const { user, setUser} = useContext(userContext);
+    const [ query, setquery] = useState('')
 
-    changeText = (user) => {
-        setUserTextInput(user)
-        //set context for user HERE
-    }
+    // function newUser(query){
+
+    //     axios.get('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile?name=' + query)
+    //         .then()
+
+    // }
+
+    useEffect(() => {
+        axios.get('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
+            .then(result => console.log(result.data))
+            .then(result => result ? setUser({name: query, ...result}) : newUser(query))
+            .catch(() => {console.log('Query: ' + query)})
+    }, [query]);
 
 
     return (
-        <view>
+        <View style={styles.container}>
             <Text>This is the login page lol</Text>
             <TextInput
-                onChangeText={text => changeText(text)}
-                value={UserTextInput}
+                placeholder="Enter your name..."
+                onChangeText={text => setuserTextInput(text)}
+                value={userTextInput}
             />
-        </view>
+            <Button
+                title='Submit'
+                type='solid'
+                onPress={() => setquery(userTextInput)}
+                size={15}
+            />
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+
+    },
     TextInput: {
+
+    },
+    Text: {
 
     }
 });
