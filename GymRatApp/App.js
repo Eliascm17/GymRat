@@ -1,13 +1,11 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { ThemeProvider } from 'react-native-elements';
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import Splash from './components/Splash'
 
 export default function App() {
 	return (
 		<ThemeProvider>
-			
-			<Button title="Hey!" />
-			<Button title="Hey!" />
+			<Splash/>
 		</ThemeProvider>
 	);
 }
