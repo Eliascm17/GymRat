@@ -4,7 +4,6 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Splash from './components/Splash'
 import Home from './components/Home'
 import Profile from './components/Profile'
 import Workout from './components/Workout'
@@ -15,7 +14,7 @@ export default function App() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
-				<Stack.Screen name="splash" component={Splash} />
+				<Stack.Screen name="splash" component={Home} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
