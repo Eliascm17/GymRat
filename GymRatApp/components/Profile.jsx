@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import MenuDrawer from 'react-native-side-drawer'
+import { PanGestureHandler } from 'react-native-gesture-handler'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
  
 export default function Profile() {
 	
 	const [drawer, setDrawer] = useState(false)
- 
-	toggleOpen = () => {
-		this.setState({ open: !this.state.open });
-	};
- 
-	drawerContent = () => {
+
+	function drawerContent() {
 		return (
 			<TouchableOpacity onPress={() => setDrawer(false)} style={styles.animatedBox}>
 				<Text>Close</Text>
@@ -22,15 +20,15 @@ export default function Profile() {
 		<View style={styles.container}>
 			<MenuDrawer 
 				open={drawer}
-				drawerContent={this.drawerContent()}
+				drawerContent={drawerContent()}
 				drawerPercentage={60}
 				animationTime={250}
 				overlay={true}
 				opacity={0.4}
 			>
-				<TouchableOpacity onPress={() => setDrawer(true)} style={styles.body}>
-					<Text>Open</Text>
-				</TouchableOpacity>
+				<PanGestureHandler onGestureEvent={setDrawer(!drawer)} activeOffsetX={20}>
+					<Text>Swipe</Text>
+				</PanGestureHandler>
 			</MenuDrawer>
 		</View>
 	);

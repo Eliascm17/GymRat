@@ -1,10 +1,15 @@
 import React from 'react'
 
-let userContext = React.createContext({
-    id: "",
-    name: "",
-    bio: "",
-    points: ""
+let UserContext = React.createContext({
+    user: {
+        id: "",
+        name: "",
+        bio: "",
+        points: "",
+    },
+    newUser: () => {
+        console.log("Context not initialized")
+    }
 })
 
-return userContext
+export default UserContext
