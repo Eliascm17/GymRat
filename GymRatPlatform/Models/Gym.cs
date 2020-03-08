@@ -5,10 +5,8 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace GymRatPlatform.Models
 {
-    public class Gym
+    public class Gym : DatabaseEntity
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public string Name { get; set; }
         public Tuple<double, double> Coordinates { get; set; }
     }

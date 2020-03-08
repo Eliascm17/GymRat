@@ -8,20 +8,14 @@ namespace GymRatPlatform.Repositories
 {
     public abstract class BaseRepository<T> where T : DatabaseEntity
     {
-        private readonly IMongoCollection<T> collection;
+        protected readonly IMongoCollection<T> collection;
 
         public BaseRepository(string collectionName) {
             string connectionString = Environment.GetEnvironmentVariable("MONGODB_CONN_STRING");
 
-            string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var client = new MongoClient(connectionString);
-            IMongoDatabase db;
 
-            if (!environment.Equals("Development")) {
-                db = client.GetDatabase("gymratprod");
-            } else {
-                db = client.GetDatabase("gymratdev");
-            }
+            IMongoDatabase db = client.GetDatabase("gymrat");
 
             collection = db.GetCollection<T>(collectionName);
         }
@@ -30,13 +24,18 @@ namespace GymRatPlatform.Repositories
             return collection.Find(_ => true).ToList();
         }
 
-        public void CreateEntity(T entity) {
+        public string CreateEntity(T entity) {
             collection.InsertOne(entity);
+            return entity.Id;
         }
 
         public T Get(string id) {
             var results = collection.Find(entity => entity.Id == id);
             return results.FirstOrDefault();
+        }
+
+        public void Update(string id, T update) {
+            collection.FindOneAndReplace(entity => entity.Id == id, update);
         }
     }
 }

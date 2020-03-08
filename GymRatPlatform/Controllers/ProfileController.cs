@@ -6,6 +6,7 @@ using GymRatPlatform.Models;
 using GymRatPlatform.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 
 namespace GymRatPlatform.Controllers
 {
@@ -13,7 +14,7 @@ namespace GymRatPlatform.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-        private ProfileRepository profileRepository;
+        private readonly ProfileRepository profileRepository;
 
         public ProfileController(ProfileRepository profileRepository) {
             this.profileRepository = profileRepository;
@@ -27,13 +28,7 @@ namespace GymRatPlatform.Controllers
         [HttpGet("{name}")]
         public Profile GetProfile(string name)
         {
-            var profiles = this.profileRepository.GetAll();
-            foreach(var profile in profiles) {
-                if (profile.Name.Equals(name)) {
-                    return profile;
-                }
-            }
-            return null;
+            return profileRepository.GetProfileByName(name);
         }
 
         /// <summary>
@@ -52,6 +47,30 @@ namespace GymRatPlatform.Controllers
             };
             
             this.profileRepository.CreateEntity(profile);
+        }
+
+        /// <summary>
+        /// Updates the points for a given user
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="points"></param>
+        [HttpPut("{name}/points/{points}")]
+        public ActionResult SetNewPointsForUser(string name, int points) {
+            Profile focusedProfile = profileRepository.GetProfileByName(name);
+
+            if (focusedProfile == null) {
+                return BadRequest("Could not find entity " + name);
+            }
+
+            Profile newProfile = new Profile{
+                Bio = focusedProfile.Bio,
+                Id = focusedProfile.Id,
+                Name = focusedProfile.Name,
+                Points = points
+            };
+
+            profileRepository.Update(newProfile.Id, newProfile);
+            return Ok();
         }
     }
 }
