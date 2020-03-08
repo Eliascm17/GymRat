@@ -13,11 +13,13 @@ namespace GymRatPlatform.Controllers
         private readonly WorkoutsRepository workoutsRepository;
         private readonly WorkoutUserRelationRepository workoutUserRelationRepository;
         private readonly ProfileRepository profileRepository;
+        private readonly SavedWorkoutsRepository savedWorkoutsRepository;
 
-        public WorkoutsController(WorkoutsRepository workoutsRepository, WorkoutUserRelationRepository workoutUserRelationRepository, ProfileRepository profileRepository) {
+        public WorkoutsController(WorkoutsRepository workoutsRepository, WorkoutUserRelationRepository workoutUserRelationRepository, ProfileRepository profileRepository, SavedWorkoutsRepository savedWorkoutsRepository) {
             this.workoutsRepository = workoutsRepository;
             this.workoutUserRelationRepository = workoutUserRelationRepository;
             this.profileRepository = profileRepository;
+            this.savedWorkoutsRepository = savedWorkoutsRepository;
         }
 
         /// <summary>
@@ -28,6 +30,34 @@ namespace GymRatPlatform.Controllers
         public IEnumerable<Workout> GetAllWorkouts()
         {
             return workoutsRepository.GetAll();
+        }
+
+        /// <summary>
+        /// Saves a workout to a users favorites
+        /// </summary>
+        /// <param name="workoutName"></param>
+        /// <param name="profileName"></param>
+        [HttpPost("{workoutName}/profiles/${profileName}")]
+        public void SaveWorkoutToFavorites(string workoutName, string profileName) {
+            SavedWorkout savedWorkout = new SavedWorkout{
+                ProfileName = profileName,
+                WorkoutName = workoutName
+            };
+
+            savedWorkoutsRepository.CreateEntity(savedWorkout);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="workoutName"></param>
+        /// <param name="profileName"></param>
+        [HttpDelete("{workoutName}/profiles/${profileName}")]
+        public void UnsaveWorkout(string workoutName, string profileName) {
+            var savedWorkout = savedWorkoutsRepository.GetSavedWorkoutByNames(workoutName, profileName);
+            if (savedWorkout != null) {
+                savedWorkoutsRepository.DeleteById(savedWorkout.Id);
+            }
         }
 
         /// <summary>
@@ -45,7 +75,7 @@ namespace GymRatPlatform.Controllers
             }
             var workOutRelations = workoutUserRelationRepository.GetWorkOutsForUserByUserId(profile.Id);
             foreach(var workoutRelation in workOutRelations) {
-                var workout = this.workoutsRepository.Get(workoutRelation.WorkoutId);
+                var workout = workoutsRepository.Get(workoutRelation.WorkoutId);
                 workouts.Add(workout);
             }
 
@@ -63,9 +93,8 @@ namespace GymRatPlatform.Controllers
         {
             Workout newWorkout = new Workout{
                 Description = workout.Description,
-                MuscleType = workout.MuscleType,
-                Name = workout.Name,
-                TimeSpan = workout.TimeSpan,
+                Type = workout.Type,
+                NameOfWorkout = workout.NameOfWorkout,
                 WorkoutSequence = workout.WorkoutSequence 
             };
 

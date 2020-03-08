@@ -8,16 +8,16 @@ namespace GymRatPlatform.Models
     public class Workout : DatabaseEntity
     {
         /// <summary>
-        /// Name of the workout
+        /// NameOfWorkout of the workout
         /// </summary>
         /// <value></value>
-        public string Name { get; set; }
+        public string NameOfWorkout { get; set; }
 
         /// <summary>
         /// Muscle type for catagorization
         /// </summary>
         /// <value></value>
-        public string MuscleType { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
         /// Description of workout
@@ -29,13 +29,6 @@ namespace GymRatPlatform.Models
         /// List of strings for the IDs of nested workouts
         /// </summary>
         /// <value></value>
-        public string[] WorkoutSequence { get; set; }
-
-        /// <summary>
-        /// How long a workout is in seconds
-        /// </summary>
-        /// <value></value>
-
-        public int TimeSpan { get; set; }
+        public WorkoutSequence[] WorkoutSequence { get; set; }
     }
 }
