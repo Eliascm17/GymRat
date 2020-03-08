@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Card, ListItem, Button } from 'react-native-elements'
-import { StyleSheet, Text, View, TextInput, Image, Modal } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, Modal, TouchableHighlight } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
@@ -22,14 +22,13 @@ function workoutsTab() {
             .then(results => {
                 setWorkouts(results.data)
             })
-            // .then(results => { console.log('Workouts for user: ' + results.data)})
             .catch(err => console.log(err))
     }, [])
 
         return (
             <View>
                 {Workouts && cards(Workouts)}
-                <Button
+                {/* <Button
                     Icon={<FontAwesome5 name={'plus'} color={'black'} size={15}/>}
                     buttonStyle={{ 
                         marginTop: 25, 
@@ -42,9 +41,8 @@ function workoutsTab() {
                         borderWidth: 1,
                         height: 65 
                     }}
-                    onPress={() => modal()}
-                />
-    
+                
+                /> */}
             </View>
             )
 }
@@ -70,25 +68,55 @@ function favoritesTab() {
 
 function cards (list) {
 
+    const [ModalVisible, setModalVisible] = useState(false)
+
     return (
-            <Card containerStyle={{ padding: 0 }} >
-                {
-                    list.map((workout, index) => {
-                        return (
-                            <ListItem
-                                key={index}
-                                title={workout.name}
-                            />
-                        );
-                    })
-                }
-            </Card>
+        <View>
+                <Card containerStyle={{ padding: 0 }} >
+                    {
+                        list.map((workout, index) => {
+                            return (
+                                <ListItem
+                                    onPress={() => {setModalVisible(!ModalVisible)}}
+                                    key={index}
+                                    title={workout.nameOfWorkout}
+                                    subtitle={workout.description}
+                                />
+                            );
+                        })
+                    }
+                </Card>
+            <CustomModal ModalVisible={ModalVisible} setModalVisible={setModalVisible} />
+        </View>
     )
 
 }
 
-function modal() {
+function CustomModal(props) {
 
+    return (
+        <View>
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={props.ModalVisible}
+                onRequestClose={() => {
+                Alert.alert('Modal has been closed.');
+                }}>
+                <View style={{ marginTop: 50 }}>
+                    <View>
+                        <Text>Hello World!</Text>
+                        <TouchableHighlight
+                            onPress={() => {
+                                props.setModalVisible(!props.ModalVisible);
+                            }}>
+                            <Text>Hide Modal</Text>
+                        </TouchableHighlight>
+                    </View>
+                </View>
+            </Modal>
+        </View>
+    )
 }
 
 
