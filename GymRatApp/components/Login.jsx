@@ -16,11 +16,15 @@ function Login(props) {
             .catch(err => console.log('Error:', err))
     }
 
-    function submit(query) {
-        axios.get('https://gymratstable-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
-            .then(result => console.log(result.data))
-            .then(result => result ? setUser({ name: query, ...result }) : newUser(query))
-            .catch(err => console.log('Error: ', err))
+    async function submit(query) {
+        console.log(query)
+        let result = await axios.get('https://gymratstable-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
+        console.log(result)
+        if(result.data) {
+            setUser({ ...result.data })
+        } else {
+            newUser(query)
+        }
     }
 
     return (

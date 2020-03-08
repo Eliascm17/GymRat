@@ -1,8 +1,8 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
-import { Icon } from 'react-native-elements'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 import Map from './Map'
 import Workout from './Workout'
@@ -17,18 +17,17 @@ export default function Home(props) {
                 initialRouteName="map" 
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ focused, color, size }) => {
-                        let iconName;
-
+                        
                         switch(route.name) {
-                            case 'map':     return <Icon name='map-marked-alt' type="font-awesome" color={color} size={size}/>
-                            case 'workout': return <Icon name='dumbbell' type="font-awesome" color={color} size={size}/>
-                            default:        return <Icon name='bolt' type="font-awesome" color={color} size={size}/>
+                            case 'map':     return <FontAwesome5 name={'map-marked-alt'} color={color} size={size}/>
+                            case 'workout': return <FontAwesome5 name={'dumbbell'} color={color} size={size}/>
                         }
                     }
                 })}
                 tabBarOptions={{
-                    activeTintColor: 'tomato',
+                    activeTintColor: 'white',
                     inactiveTintColor: 'gray',
+                    activeBackgroundColor: '#951BAD'
                 }}
             >
                 <Tab.Screen name="map" component={Map} />
