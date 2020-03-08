@@ -13,5 +13,9 @@ namespace GymRatPlatform.Repositories
         public SavedWorkout GetSavedWorkoutByNames(string workoutName, string profileName) {
             return collection.Find(workout => (workout.ProfileName == profileName) && (workout.WorkoutName == workoutName)).FirstOrDefault();
         }
+
+        public List<SavedWorkout> GetSavedWorkoutsByProfileName(string profileName) {
+            return collection.Find(savedWorkouts => savedWorkouts.ProfileName == profileName).ToList();
+        }
     }
 }

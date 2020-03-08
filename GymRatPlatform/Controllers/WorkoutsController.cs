@@ -31,13 +31,32 @@ namespace GymRatPlatform.Controllers
         {
             return workoutsRepository.GetAll();
         }
+        
+        /// <summary>
+        /// Gets all of the saved workouts for a profile
+        /// </summary>
+        /// <param name="profileName"></param>
+        /// <returns></returns>
+        [HttpGet("{profileName}/saved")]
+        public List<Workout> GetSavedWorkouts(string profileName) {
+            var savedWorkouts = savedWorkoutsRepository.GetSavedWorkoutsByProfileName(profileName);
+            List<Workout> workouts = new List<Workout>();
+            foreach(var savedWorkout in savedWorkouts) {
+                var workout = workoutsRepository.GetWorkoutByName(savedWorkout.WorkoutName);
+                if (workout != null) {
+                    workouts.Add(workout);
+                }
+            }
+
+            return workouts;
+        }
 
         /// <summary>
-        /// Saves a workout to a users favorites
+        /// Saves a workout to a user's favorites
         /// </summary>
         /// <param name="workoutName"></param>
         /// <param name="profileName"></param>
-        [HttpPost("{workoutName}/profiles/${profileName}")]
+        [HttpPost("{workoutName}/profiles/{profileName}")]
         public void SaveWorkoutToFavorites(string workoutName, string profileName) {
             SavedWorkout savedWorkout = new SavedWorkout{
                 ProfileName = profileName,
@@ -48,7 +67,7 @@ namespace GymRatPlatform.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Unsaves a workout from a user's favorites
         /// </summary>
         /// <param name="workoutName"></param>
         /// <param name="profileName"></param>
