@@ -13,13 +13,13 @@ function Login(props) {
     const { user, setUser} = useContext(userContext);
 
     function newUser(query){
-        axios.post('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
+        axios.post('https://gymratstable-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
             .then(result => setUser({ name: query, bio: "Certified Gym Rat©", points: 0 }))
             .catch(err => console.log('Error:', err))
     }
 
     function submit(query) {
-        axios.get('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
+        axios.get('https://gymratstable-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
             .then(result => console.log(result.data))
             .then(result => result ? setUser({ name: query, ...result }) : newUser(query))
             .catch(err => console.log('Error: ', err))
@@ -28,7 +28,7 @@ function Login(props) {
     return (
         <View style={styles.container}>
             <Image
-                style={{ alignSelf: 'center', width: 150, height: 150, marginTop: 200}}
+                style={{ alignSelf: 'center', width: 150, height: 150, marginTop: 125}}
                 source={require('../assets/gymrat-logo-transparent.png')}
             />
             <TextInput
@@ -38,9 +38,9 @@ function Login(props) {
                 value={userTextInput}
             />
             <Button
-                style={{ paddingTop: 25, width: 300, alignSelf: 'center'}}
+                buttonStyle={{ marginTop: 25, width: 300, alignSelf: 'center', borderRadius: 50, backgroundColor: "#951BAD", height: 65}}
+                titleStyle={{ fontSize: 24 }}
                 title='Submit'
-                borderRadius={50}
                 backgroundColor='#951BAD'
                 color='#951BAD'
                 onPress={() => submit(userTextInput)}
@@ -52,13 +52,13 @@ function Login(props) {
 const styles = StyleSheet.create({
     TextInput: {
         alignSelf: 'center',
-        marginTop: 25,
+        marginTop: 50,
         fontSize: 30,
         backgroundColor: '#d1d1d1',
-        paddingLeft: 40,
         width: 300,
         height: 65,
         borderRadius: 50,
+        textAlign: 'center'
     }
 });
 

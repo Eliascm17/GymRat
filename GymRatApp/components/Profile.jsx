@@ -16,7 +16,7 @@ export default function Profile(props) {
 				<Avatar
 					rounded
 					source={{
-						uri: "https://raw.githubusercontent.com/Eliascm17/GymRat/master/GymRatApp/assets/profile-pictures/" + (user.name || 'null') + ".jpg"
+						uri: "https://raw.githubusercontent.com/Eliascm17/GymRat/master/GymRatApp/assets/profile-pictures/" + (user.name.toLowerCase() || 'null') + ".jpg"
 					}}
 					size="xlarge"
 				/>
