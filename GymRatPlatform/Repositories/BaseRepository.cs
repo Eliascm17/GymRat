@@ -38,5 +38,9 @@ namespace GymRatPlatform.Repositories
             var results = collection.Find(entity => entity.Id == id);
             return results.FirstOrDefault();
         }
+
+        public void Update(string id, T update) {
+            collection.FindOneAndReplace(entity => entity.Id == id, update);
+        }
     }
 }

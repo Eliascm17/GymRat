@@ -53,5 +53,35 @@ namespace GymRatPlatform.Controllers
             
             this.profileRepository.CreateEntity(profile);
         }
+
+        /// <summary>
+        /// Updates the points for a given user
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="points"></param>
+        [HttpPut("{name}/points/{points}")]
+        public ActionResult SetNewPointsForUser(string name, int points) {
+            var profiles = profileRepository.GetAll();
+            Profile focusedProfile = null;
+            foreach(var profile in profiles) {
+                if (profile.Name.Equals(name)) {
+                    focusedProfile = profile;
+                }
+            }
+
+            if (focusedProfile == null) {
+                return BadRequest("Could not find entity " + name);
+            }
+
+            Profile newProfile = new Profile{
+                Bio = focusedProfile.Bio,
+                Id = focusedProfile.Id,
+                Name = focusedProfile.Name,
+                Points = points
+            };
+
+            profileRepository.Update(newProfile.Id, newProfile);
+            return Ok();
+        }
     }
 }
