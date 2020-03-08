@@ -56,7 +56,7 @@ namespace GymRatPlatform.Controllers
         /// </summary>
         /// <param name="workoutName"></param>
         /// <param name="profileName"></param>
-        [HttpPost("{workoutName}/profiles/${profileName}")]
+        [HttpPost("{workoutName}/profiles/{profileName}")]
         public void SaveWorkoutToFavorites(string workoutName, string profileName) {
             SavedWorkout savedWorkout = new SavedWorkout{
                 ProfileName = profileName,
