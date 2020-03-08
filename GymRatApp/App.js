@@ -25,7 +25,9 @@ export default function App() {
 				<NavigationContainer>
 					{!user.name ?
 						<Profile>
-							<Stack.Navigator>
+							<Stack.Navigator
+								headerMode={false}
+							>
 								<Stack.Screen name="login" component={Login}/>
 								<Stack.Screen name="home" component={Home}/>
 							</Stack.Navigator>
@@ -33,6 +35,7 @@ export default function App() {
 					: 
 						<Profile>
 							<Stack.Screen name="home" component={Home} />
+						  }/>
 						</Profile>
 					}
 				</NavigationContainer>
