@@ -5,14 +5,37 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace GymRatPlatform.Models
 {
-    public class Workout
+    public class Workout : DatabaseEntity
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        /// <summary>
+        /// Name of the workout
+        /// </summary>
+        /// <value></value>
         public string Name { get; set; }
-        public IEnumerable<Workout> Sequence { get; set; }
 
-        public DateTime TimeSpan { get; set; }
+        /// <summary>
+        /// Muscle type for catagorization
+        /// </summary>
+        /// <value></value>
+        public string MuscleType { get; set; }
+
+        /// <summary>
+        /// Description of workout
+        /// </summary>
+        /// <value></value>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// List of strings for the IDs of nested workouts
+        /// </summary>
+        /// <value></value>
+        public string[] WorkoutSequence { get; set; }
+
+        /// <summary>
+        /// How long a workout is in seconds
+        /// </summary>
+        /// <value></value>
+
+        public int TimeSpan { get; set; }
     }
 }

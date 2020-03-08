@@ -7,7 +7,7 @@ import UserContext from '../contexts/userContext'
 
 export default function Profile(props) {
 
-	const { user } = useContext(UserContext)
+	const { user, setUser } = useContext(UserContext)
 
 	function profileContent() {
 
@@ -16,11 +16,11 @@ export default function Profile(props) {
 				<Avatar
 					rounded
 					source={{
-						uri: "https://raw.githubusercontent.com/Eliascm17/GymRat/master/GymRatApp/assets/profile-pictures/" + (user.name || 'null') + ".jpg"
+						uri: "https://raw.githubusercontent.com/Eliascm17/GymRat/master/GymRatApp/assets/profile-pictures/" + (user.name.toLowerCase() || 'null') + ".jpg"
 					}}
 					size="xlarge"
 				/>
-				<Text style={{ paddingTop: 20, fontFamily: 'System', fontSize: 28 }}>
+				<Text style={{ paddingTop: 20, fontFamily: 'System', fontSize: 28 }} onLongPress={() => setUser({ name: "", bio: "", points: 0 })}>
 					{user.name || "Not logged in..."}
 				</Text>
 				<Text style={{ paddingTop: 20, flexGrow: 1, fontFamily: 'System', fontSize: 20 }}>

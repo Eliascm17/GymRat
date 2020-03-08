@@ -1,60 +1,66 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image } from 'react-native'
 import userContext from '../contexts/userContext'
 import { Button } from 'react-native-elements';
 import axios from 'axios'
-// import Icon from 'react-native-vector-icons/FontAwesome'
-// import { Input } from 'react-native-elements'
 
 function Login(props) {
 
     const [userTextInput, setuserTextInput] = useState('')
     const [ data, setData ] = useState(null)
     const { user, setUser} = useContext(userContext);
-    const [ query, setquery] = useState('')
 
     function newUser(query){
-        axios.post('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile?name=' + query)
+        axios.post('https://gymratstable-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
             .then(result => setUser({ name: query, bio: "Certified Gym Rat©", points: 0 }))
             .catch(err => console.log('Error:', err))
     }
 
-    useEffect(() => {
-        axios.get('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
-            .then(result => console.log(result.data))
-            .then(result => result ? setUser({ name: query, ...result }) : newUser(query))
-            .catch(err => console.log('Error: ', err))
-    }, [query]);
-
+    async function submit(query) {
+        console.log(query)
+        let result = await axios.get('https://gymratstable-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
+        console.log(result)
+        if(result.data) {
+            setUser({ ...result.data })
+        } else {
+            newUser(query)
+        }
+    }
 
     return (
         <View style={styles.container}>
-            <Text>This is the login page lol</Text>
+            <Image
+                style={{ alignSelf: 'center', width: 150, height: 150, marginTop: 125}}
+                source={require('../assets/gymrat-logo-transparent.png')}
+            />
             <TextInput
+                style={styles.TextInput}
                 placeholder="Enter your name..."
                 onChangeText={text => setuserTextInput(text)}
                 value={userTextInput}
             />
             <Button
+                buttonStyle={{ marginTop: 25, width: 300, alignSelf: 'center', borderRadius: 50, backgroundColor: "#951BAD", height: 65}}
+                titleStyle={{ fontSize: 24 }}
                 title='Submit'
-                type='solid'
-                onPress={() => props.navigation.replace('home')}
-                // onPress={() => setquery(userTextInput)}
-                size={15}
-            />
+                backgroundColor='#951BAD'
+                color='#951BAD'
+                onPress={() => submit(userTextInput)}
+            /> 
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-
-    },
     TextInput: {
-
-    },
-    Text: {
-
+        alignSelf: 'center',
+        marginTop: 50,
+        fontSize: 30,
+        backgroundColor: '#d1d1d1',
+        width: 300,
+        height: 65,
+        borderRadius: 50,
+        textAlign: 'center'
     }
 });
 
