@@ -7,8 +7,6 @@ import UserContext from '../contexts/userContext'
 
 export default function Profile(props) {
 
-	console.log(props.navigation)
-
 	const { user } = useContext(UserContext)
 
 	function profileContent() {

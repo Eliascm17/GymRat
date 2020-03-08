@@ -8,26 +8,22 @@ import axios from 'axios'
 
 function Login(props) {
 
-    console.log(props)
-
     const [userTextInput, setuserTextInput] = useState('')
     const [ data, setData ] = useState(null)
     const { user, setUser} = useContext(userContext);
     const [ query, setquery] = useState('')
 
-    // function newUser(query){
-
-    //     axios.get('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile?name=' + query)
-    //         .then()
-
-    // }
+    function newUser(query){
+        axios.post('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile?name=' + query)
+            .then(result => setUser({ name: query, bio: "Certified Gym Rat©", points: 0 }))
+            .catch(err => console.log('Error:', err))
+    }
 
     useEffect(() => {
         axios.get('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
             .then(result => console.log(result.data))
-            .then(result => result ? setUser({name: query, ...result}) : newUser(query))
-            .then(props.navigation.replace('home'))
-            .catch(err => { console.log('Error: ', err) })
+            .then(result => result ? setUser({ name: query, ...result }) : newUser(query))
+            .catch(err => console.log('Error: ', err))
     }, [query]);
 
 
