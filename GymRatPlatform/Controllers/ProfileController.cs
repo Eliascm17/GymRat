@@ -6,6 +6,7 @@ using GymRatPlatform.Models;
 using GymRatPlatform.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 
 namespace GymRatPlatform.Controllers
 {
@@ -13,7 +14,7 @@ namespace GymRatPlatform.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-        private ProfileRepository profileRepository;
+        private readonly ProfileRepository profileRepository;
 
         public ProfileController(ProfileRepository profileRepository) {
             this.profileRepository = profileRepository;
@@ -27,13 +28,7 @@ namespace GymRatPlatform.Controllers
         [HttpGet("{name}")]
         public Profile GetProfile(string name)
         {
-            var profiles = this.profileRepository.GetAll();
-            foreach(var profile in profiles) {
-                if (profile.Name.Equals(name)) {
-                    return profile;
-                }
-            }
-            return null;
+            return profileRepository.GetProfileByName(name);
         }
 
         /// <summary>
@@ -61,13 +56,7 @@ namespace GymRatPlatform.Controllers
         /// <param name="points"></param>
         [HttpPut("{name}/points/{points}")]
         public ActionResult SetNewPointsForUser(string name, int points) {
-            var profiles = profileRepository.GetAll();
-            Profile focusedProfile = null;
-            foreach(var profile in profiles) {
-                if (profile.Name.Equals(name)) {
-                    focusedProfile = profile;
-                }
-            }
+            Profile focusedProfile = profileRepository.GetProfileByName(name);
 
             if (focusedProfile == null) {
                 return BadRequest("Could not find entity " + name);
