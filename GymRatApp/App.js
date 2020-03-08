@@ -30,8 +30,7 @@ export default function App() {
 					: 
 						<Profile>
 							<Stack.Navigator headerMode="none">
-								<Stack.Screen name="home" component={Home}/>
-								<Stack.Screen name="workout" component={Workout} />
+								<Stack.Screen name="home" component={Home} />
 							</Stack.Navigator>
 						</Profile>
 					}
