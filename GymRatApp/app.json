@@ -25,9 +25,6 @@
     ],
     "ios": {
       "supportsTablet": true
-    },
-    "splash": {
-      "image": "./assets/splash.png"
     }
   }
 }
