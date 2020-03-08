@@ -11,7 +11,6 @@ function Login(props) {
     const [userTextInput, setuserTextInput] = useState('')
     const [ data, setData ] = useState(null)
     const { user, setUser} = useContext(userContext);
-    const [ query, setquery] = useState('')
 
     function newUser(query){
         axios.post('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
@@ -19,13 +18,12 @@ function Login(props) {
             .catch(err => console.log('Error:', err))
     }
 
-    useEffect(() => {
+    function submit(query) {
         axios.get('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
             .then(result => console.log(result.data))
             .then(result => result ? setUser({ name: query, ...result }) : newUser(query))
             .catch(err => console.log('Error: ', err))
-    }, [query]);
-
+    }
 
     return (
         <View style={styles.container}>
@@ -45,7 +43,7 @@ function Login(props) {
                 borderRadius={50}
                 backgroundColor='#951BAD'
                 color='#951BAD'
-                onPress={() => setquery(userTextInput)}
+                onPress={() => submit(userTextInput)}
             /> 
         </View>
     )
