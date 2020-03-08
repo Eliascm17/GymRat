@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, Fragment } from 'react'
 import { Card, ListItem, Button } from 'react-native-elements'
 import { StyleSheet, Text, View, TextInput, Image, Modal, TouchableHighlight } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -28,21 +28,22 @@ function workoutsTab() {
         return (
             <View>
                 {Workouts && cards(Workouts)}
-                {/* <Button
+                <Button
                     Icon={<FontAwesome5 name={'plus'} color={'black'} size={15}/>}
                     buttonStyle={{ 
-                        marginTop: 25, 
+                        marginRight: 30,
+                        alignSelf: 'flex-end',
                         width: 65, 
-                        alignSelf: 'flex-end', 
+                        height: 65, 
                         borderRadius: 60, 
                         backgroundColor: "white",
-                        marginTop: 590,
-                        marginRight: 30,
+                        marginTop: 520,
                         borderWidth: 1,
-                        height: 65 
+                        position: 'relative'
+                        // onPress: {() => {modal()}}
                     }}
                 
-                /> */}
+                />
             </View>
             )
 }
@@ -76,17 +77,31 @@ function cards (list) {
                     {
                         list.map((workout, index) => {
                             return (
-                                <ListItem
-                                    onPress={() => {setModalVisible(!ModalVisible)}}
-                                    key={index}
-                                    title={workout.nameOfWorkout}
-                                    subtitle={workout.description}
-                                />
+                                <>
+                                    <ListItem
+                                        onPress={() => {setModalVisible(!ModalVisible)}}
+                                        key={index}
+                                        title={workout.nameOfWorkout}
+                                        subtitle={workout.description}
+                                    />
+                                    <CustomModal ModalVisible={ModalVisible} setModalVisible={setModalVisible}>
+                                            <Text>{workout.nameOfWorkout}</Text>
+                                            <Text>{workout.description}</Text>
+                                            {workout.workoutSequence.map((exercise, e) =>{
+                                                return(
+                                                <ListItem
+                                                    key={e}
+                                                    title={exercise.exersize}
+                                                    subtitle={exercise.description}
+                                                />
+                                                )
+                                            })}
+                                    </CustomModal>
+                                </>
                             );
                         })
                     }
                 </Card>
-            <CustomModal ModalVisible={ModalVisible} setModalVisible={setModalVisible} />
         </View>
     )
 
@@ -105,13 +120,13 @@ function CustomModal(props) {
                 }}>
                 <View style={{ marginTop: 50 }}>
                     <View>
-                        <Text>Hello World!</Text>
                         <TouchableHighlight
                             onPress={() => {
                                 props.setModalVisible(!props.ModalVisible);
                             }}>
-                            <Text>Hide Modal</Text>
+                            <FontAwesome5 style={{paddingLeft: 15}} name={'times'} color={'black'} size={40} />
                         </TouchableHighlight>
+                        {props.children}
                     </View>
                 </View>
             </Modal>
