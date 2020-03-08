@@ -15,7 +15,7 @@
             "stopAtEntry": false,
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "MONGODB_CONN_STRING": "mongodb://gymrat:gymrat123@ds263068.mlab.com:63068/gymratdev?retryWrites=false"
+                "MONGODB_CONN_STRING": "mongodb://gymrat:gymrat123@ds263048.mlab.com:63048/gymrat?retryWrites=false"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

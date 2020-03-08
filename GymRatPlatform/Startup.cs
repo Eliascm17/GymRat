@@ -42,6 +42,9 @@ namespace GymRatPlatform
             });
 
             services.AddSingleton<ProfileRepository>();
+            services.AddSingleton<WorkoutsRepository>();
+            services.AddSingleton<WorkoutUserRelationRepository>();
+            services.AddSingleton<CheckedInStatusRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
