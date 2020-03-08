@@ -37,5 +37,9 @@ namespace GymRatPlatform.Repositories
         public void Update(string id, T update) {
             collection.FindOneAndReplace(entity => entity.Id == id, update);
         }
+
+        public void DeleteById(string id) {
+            collection.FindOneAndDelete(entity => entity.Id == id);
+        }
     }
 }

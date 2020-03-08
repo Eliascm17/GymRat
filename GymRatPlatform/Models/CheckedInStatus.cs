@@ -6,7 +6,7 @@ namespace GymRatPlatform.Models
 {
     public class CheckedInStatus : DatabaseEntity
     {
-        public string GymId { get; set; }
+        public string GymName { get; set; }
         public string ProfileName { get; set; }
     }
 }
