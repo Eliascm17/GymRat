@@ -24,15 +24,15 @@ export default function App() {
 			<ThemeProvider theme={theme}>
 				<NavigationContainer>
 					{!user.name ?
-						<Profile>
-							<Stack.Navigator>
-								<Stack.Screen name="login" component={Login}/>
-								<Stack.Screen name="home" component={Home}/>
-							</Stack.Navigator>
-						</Profile>
+						<Stack.Navigator>
+							<Stack.Screen name="login" component={Login}/>
+						</Stack.Navigator>
 					: 
 						<Profile>
-							<Stack.Screen name="home" component={Home} />
+							<Stack.Navigator>
+								<Stack.Screen name="home" component={Home}/>
+								<Stack.Screen name="workout" component={Workout} />
+							</Stack.Navigator>
 						</Profile>
 					}
 				</NavigationContainer>
