@@ -21,6 +21,16 @@ namespace GymRatPlatform.Controllers
         }
 
         /// <summary>
+        /// Gets all of the Workouts
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet()]
+        public IEnumerable<Workout> GetAllWorkouts()
+        {
+            return workoutsRepository.GetAll();
+        }
+
+        /// <summary>
         /// Gets all of the Workouts for a User
         /// </summary>
         /// <param name="name"></param>

@@ -21,6 +21,14 @@ namespace GymRatPlatform.Controllers
         }
 
         /// <summary>
+        /// Gets all Profiles
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Profile> GetAllProfiles() {
+            return profileRepository.GetAll();
+        }
+
+        /// <summary>
         /// Gets the profile using the name
         /// </summary>
         /// <param name="name"></param>
