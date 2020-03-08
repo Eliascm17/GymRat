@@ -6,7 +6,9 @@ import axios from 'axios'
 // import Icon from 'react-native-vector-icons/FontAwesome'
 // import { Input } from 'react-native-elements'
 
-function Login() {
+function Login(props) {
+
+    console.log(props)
 
     const [userTextInput, setuserTextInput] = useState('')
     const [ data, setData ] = useState(null)
@@ -24,7 +26,8 @@ function Login() {
         axios.get('https://gymratdev-yswlpk5fsa-uc.a.run.app/api/profile/' + query)
             .then(result => console.log(result.data))
             .then(result => result ? setUser({name: query, ...result}) : newUser(query))
-            .catch(() => {console.log('Query: ' + query)})
+            .then(props.navigation.replace('home'))
+            .catch(err => { console.log('Error: ', err) })
     }, [query]);
 
 
@@ -39,7 +42,8 @@ function Login() {
             <Button
                 title='Submit'
                 type='solid'
-                onPress={() => setquery(userTextInput)}
+                onPress={() => props.navigation.replace('home')}
+                // onPress={() => setquery(userTextInput)}
                 size={15}
             />
         </View>

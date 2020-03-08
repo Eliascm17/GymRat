@@ -9,6 +9,7 @@ import UserContext from './contexts/userContext'
 import Home from './components/Home'
 import Profile from './components/Profile'
 import Workout from './components/Workout'
+import Login from './components/Login'
 
 const Stack = createStackNavigator();
 
@@ -22,9 +23,18 @@ export default function App() {
 		<UserContext.Provider value={{user, setUser}}>
 			<ThemeProvider theme={theme}>
 				<NavigationContainer>
-					<Stack.Navigator>
-						<Stack.Screen name="profile" component={Profile} />
-					</Stack.Navigator>
+					{!user.name ?
+						<Profile>
+							<Stack.Navigator>
+								<Stack.Screen name="login" component={Login}/>
+								<Stack.Screen name="home" component={Home}/>
+							</Stack.Navigator>
+						</Profile>
+					: 
+						<Profile>
+							<Stack.Screen name="home" component={Home} />
+						</Profile>
+					}
 				</NavigationContainer>
 			</ThemeProvider>
 		</UserContext.Provider>

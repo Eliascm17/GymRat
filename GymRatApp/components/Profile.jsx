@@ -5,7 +5,9 @@ import { Avatar, Image, Icon } from 'react-native-elements'
 
 import UserContext from '../contexts/userContext'
 
-export default function Profile() {
+export default function Profile(props) {
+
+	console.log(props.navigation)
 
 	const { user } = useContext(UserContext)
 
@@ -37,19 +39,15 @@ export default function Profile() {
 	};
  
 	return (
-		<View style={{ flex: 1 }}>
-			<DrawerLayout
-				drawerWidth={300}
-				edgeWidth={300}
-				drawerPosition={DrawerLayout.positions.Left}
-				drawerType='front'
-				drawerBackgroundColor="#fafafa"
-				renderNavigationView={profileContent}
-			>
-				<View>
-					<Text> Hello, it's me </Text>
-				</View>
-			</DrawerLayout>
-    	</View>
+		<DrawerLayout
+			drawerWidth={300}
+			edgeWidth={300}
+			drawerPosition={DrawerLayout.positions.Left}
+			drawerType='front'
+			drawerBackgroundColor="#fafafa"
+			renderNavigationView={profileContent}
+		>
+			{props.children}
+		</DrawerLayout>
 	);
 }
