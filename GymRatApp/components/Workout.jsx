@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Card, ListItem, Button } from 'react-native-elements'
-import { StyleSheet, Text, View, TextInput, Image } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, Modal } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import userContext from '../contexts/userContext'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,17 +14,21 @@ function workoutsTab() {
     const [Workouts, setWorkouts] = useState([])
     const { user } = useContext(userContext)
 
+    console.log({Workouts})
+
     useEffect(() => {
-        axios.get('https://gymratstable-yswlpk5fsa-uc.a.run.app/api/workouts/' + user)
-            .then(results => setFavorites(results))
-            .then(() => {console.log()})
+        console.log({user})
+        axios.get('https://gymratstable-yswlpk5fsa-uc.a.run.app/api/workouts/' + user.name)
+            .then(results => {
+                setWorkouts(results.data)
+            })
+            // .then(results => { console.log('Workouts for user: ' + results.data)})
             .catch(err => console.log(err))
-    })
+    }, [])
 
         return (
             <View>
-                {Workouts ? cards(Workouts) : null}
-
+                {Workouts && cards(Workouts)}
                 <Button
                     Icon={<FontAwesome5 name={'plus'} color={'black'} size={15}/>}
                     buttonStyle={{ 
@@ -39,13 +42,11 @@ function workoutsTab() {
                         borderWidth: 1,
                         height: 65 
                     }}
-                    // onPress{() => modal()}
+                    onPress={() => modal()}
                 />
-            </View>
     
+            </View>
             )
-
-
 }
 
 function favoritesTab() {
@@ -53,20 +54,17 @@ function favoritesTab() {
     const [Favorites, setFavorites] = useState([])
     const { user } = useContext(userContext)
 
+    // useEffect(() => {
+    //     axios.get('https://gymratstable-yswlpk5fsa-uc.a.run.app/api/workouts/' + user)
+    //         .then(results => setWorkouts(results))
+    //         .then(() => { console.log() })
+    //         .catch(err => console.log(err))
+    // }, [])
 
     return (
-        <View>
-            <Card containerStyle={{padding: 0}}>
-                <Card
-                    title='HELLO WORLD'>
-                </Card>
-            </Card>
-            <Card containerStyle={{padding: 0}}>
-                <Card
-                    title='HELLO WORLD'>
-                </Card>
-            </Card>
-        </View>
+            <View>
+                {/* return mapped workouts here in a list */}
+            </View>
     )
 }
 
@@ -86,6 +84,10 @@ function cards (list) {
                 }
             </Card>
     )
+
+}
+
+function modal() {
 
 }
 
