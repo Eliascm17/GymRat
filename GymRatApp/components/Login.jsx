@@ -3,8 +3,6 @@ import { StyleSheet, Text, View, TextInput, Image } from 'react-native'
 import userContext from '../contexts/userContext'
 import { Button } from 'react-native-elements';
 import axios from 'axios'
-// import Icon from 'react-native-vector-icons/FontAwesome'
-// import { Input } from 'react-native-elements'
 
 function Login(props) {
 
