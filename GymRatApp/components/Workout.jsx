@@ -28,22 +28,7 @@ function workoutsTab() {
         return (
             <View>
                 {Workouts && cards(Workouts)}
-                <Button
-                    Icon={<FontAwesome5 name={'plus'} color={'black'} size={15}/>}
-                    buttonStyle={{ 
-                        marginRight: 30,
-                        alignSelf: 'flex-end',
-                        width: 65, 
-                        height: 65, 
-                        borderRadius: 60, 
-                        backgroundColor: "white",
-                        marginTop: 520,
-                        borderWidth: 1,
-                        position: 'relative'
-                        // onPress: {() => {modal()}}
-                    }}
-                
-                />
+                <AddWorkout/>
             </View>
             )
 }
@@ -107,6 +92,40 @@ function cards (list) {
 
 }
 
+function AddWorkout() {
+
+    const [ModalVisible, setModalVisible] = useState(false);
+
+    return (
+      <View>
+        <Button
+          Icon={<FontAwesome5 name={"plus"} color={"black"} size={40} />}
+          buttonStyle={{
+            marginRight: 30,
+            alignSelf: "flex-end",
+            width: 65,
+            height: 65,
+            borderRadius: 60,
+            backgroundColor: "white",
+            marginTop: 550,
+            borderWidth: 1,
+            position: "relative"
+          }}
+          onPress={() => {
+            setModalVisible(!ModalVisible);
+          }}
+        />
+        <CustomModal
+          ModalVisible={ModalVisible}
+          setModalVisible={setModalVisible}
+        >
+          <Text>Add a workout here</Text>
+          {/* add inputs here... */}
+        </CustomModal>
+      </View>
+    );
+}
+
 function CustomModal(props) {
 
     return (
@@ -138,7 +157,7 @@ function CustomModal(props) {
 export default function Workout(props) {
     return (
         <Tab.Navigator tabBarOptions={{
-            style: {paddingTop: 60}
+            style: {paddingTop: 40}
         }}
         >
             <Tab.Screen name="Workouts" component={workoutsTab} />

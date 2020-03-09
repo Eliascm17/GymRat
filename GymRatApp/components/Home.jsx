@@ -16,7 +16,6 @@ export default function Home(props) {
       <NavigationContainer independent={true}>
         <Tab.Navigator
           initialRouteName="map"
-          screenOptions={({ route }) => ({})}
           tabBarOptions={{
             activeTintColor: "white",
             inactiveTintColor: "gray",
