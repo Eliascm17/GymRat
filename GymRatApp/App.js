@@ -7,9 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import UserContext from './contexts/userContext'
 
 import Home from './components/Home'
-import Profile from './components/Profile'
-import Workout from './components/Workout'
 import Login from './components/Login'
+import Profile from './components/Profile'
 
 const Stack = createStackNavigator();
 
@@ -28,11 +27,9 @@ export default function App() {
 							<Stack.Screen name="login" component={Login}/>
 						</Stack.Navigator>
 					: 
-						<Profile>
-							<Stack.Navigator headerMode="none">
-								<Stack.Screen name="home" component={Home} />
-							</Stack.Navigator>
-						</Profile>
+						<Stack.Navigator headerMode="none">
+							<Stack.Screen name="home" component={Home} />
+						</Stack.Navigator>
 					}
 				</NavigationContainer>
 			</ThemeProvider>

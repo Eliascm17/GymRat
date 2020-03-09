@@ -9,8 +9,6 @@ export default function Profile(props) {
 
 	const { user, setUser } = useContext(UserContext)
 
-	function profileContent() {
-
 		return (
 			<View style={{ flex: 1, padding: 30, alignItems: 'center', flexDirection: 'column' }}>
 				<Avatar
@@ -35,17 +33,3 @@ export default function Profile(props) {
 			</View>
 		);
 	};
- 
-	return (
-		<DrawerLayout
-			drawerWidth={300}
-			edgeWidth={300}
-			drawerPosition={DrawerLayout.positions.Left}
-			drawerType='front'
-			drawerBackgroundColor="#fafafa"
-			renderNavigationView={profileContent}
-		>
-			{props.children}
-		</DrawerLayout>
-	);
-}
