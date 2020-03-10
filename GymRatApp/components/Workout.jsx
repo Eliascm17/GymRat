@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import userContext from '../contexts/userContext'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import t from 'tcomb-form-native'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -32,6 +33,8 @@ function workoutsTab() {
             </View>
             )
 }
+
+
 
 function favoritesTab() {
 
@@ -118,9 +121,9 @@ function AddWorkout() {
         <CustomModal
           ModalVisible={ModalVisible}
           setModalVisible={setModalVisible}
+          
         >
-          <Text>Add a workout here</Text>
-          {/* add inputs here... */}
+          <AddInputLine/>
         </CustomModal>
       </View>
     );
@@ -152,6 +155,52 @@ function CustomModal(props) {
         </View>
     )
 }
+
+function AddInputLine() {
+
+   const [nameinput, setnameinput] = useState('')
+   const [description, setdescription] = useState('')
+   const [workoutStack, setworkoutStack] = useState([])
+    
+    return (
+      <View>
+        <TextInput
+          placeholder="Name of the workout"
+          onChange={text => setnameinput(text)}
+          value={nameinput}
+        />
+        <TextInput
+          placeholder="Description"
+          onChange={text => setdescription(text)}
+          value={description}
+        />
+        <InputForm />
+        <Button title="+" />
+      </View>
+    );
+}
+
+function InputForm(props) {
+
+    const [exercise, setexercise] = useState('')
+    const [details, setdetails] = useState('')
+
+    return (
+      <View>
+        <TextInput
+          placeholder="Exercise"
+          onChange={text => setexercise(text)}
+          value={exercise}
+        />
+        <TextInput
+          placeholder="Details"
+          onChange={text => setdetails(text)}
+          value={details}
+        />
+      </View>
+    );
+};
+
 
 
 export default function Workout(props) {
