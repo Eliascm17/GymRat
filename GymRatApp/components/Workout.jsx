@@ -158,49 +158,63 @@ function CustomModal(props) {
 
 function AddInputLine() {
 
-   const [nameinput, setnameinput] = useState('')
-   const [description, setdescription] = useState('')
-   const [workoutStack, setworkoutStack] = useState([])
+    const [workout, setworkout] = useState({
+      name: "",
+      type: "",
+      description: "",
+      workoutSequence: []
+    });
+
+    const [exercise, setexercise] = useState({
+      exercise: "",
+      details: ""
+    });
     
     return (
       <View>
         <TextInput
+          style={{ height: 40, fontSize: 35 }}
           placeholder="Name of the workout"
-          onChange={text => setnameinput(text)}
-          value={nameinput}
+          onChange={text => setworkout({ name: text })}
+          value={workout.description}
         />
         <TextInput
+          style={{ height: 40, fontSize: 35 }}
           placeholder="Description"
-          onChange={text => setdescription(text)}
-          value={description}
+          onChange={text => setworkout({ description: text })}
+          value={workout.description}
         />
-        <InputForm />
-        <Button title="+" />
+        <InputForm exercise={exercise} setexercise={setexercise} />
+        <Button 
+            title="+" 
+            onPress={() => {
+                setworkout({ workoutSequence: [...prevstate, exercise]})
+                //do something here but idk what to put 
+            }}
+        />
       </View>
     );
 }
 
 function InputForm(props) {
 
-    const [exercise, setexercise] = useState('')
-    const [details, setdetails] = useState('')
-
     return (
       <View>
         <TextInput
+          style={{ height: 30, fontSize: 30}}
           placeholder="Exercise"
-          onChange={text => setexercise(text)}
-          value={exercise}
+          onChange={text => props.setexercise({ exercise: text })}
+          value={props.exercise.exercise}
         />
         <TextInput
+          style={{ height: 30, fontSize: 30}}
           placeholder="Details"
-          onChange={text => setdetails(text)}
-          value={details}
+          onChange={text => props.setexercise({ details: text })}
+          value={props.exercise.details}
         />
       </View>
     );
 };
-
 
 
 export default function Workout(props) {
